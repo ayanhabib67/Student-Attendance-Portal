@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance App - Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+        
+        .signup-container {
+            width: 100%;
+            max-width: 450px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .signup-header {
+            background-color: #4285f4;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .signup-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .signup-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .signup-form {
+            padding: 30px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+        
+        .password-strength {
+            margin-top: 5px;
+            height: 4px;
+            background-color: #333;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            background-color: #ea4335;
+            transition: width 0.3s, background-color 0.3s;
+        }
+        
+        .password-hint {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .terms-agreement {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        
+        .terms-agreement input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .terms-agreement a {
+            color: #4285f4;
+            text-decoration: none;
+        }
+        
+        .signup-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .signup-button:hover {
+            background-color: #3367d6;
+        }
+        
+        .divider {
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #333;
+            z-index: -1;
+        }
+        
+        .divider span {
+            background-color: #1e1e1e;
+            padding: 0 10px;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        
+        .login-link a {
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .role-selector {
+            display: flex;
+            border: 1px solid #333;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .role-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: #2d2d2d;
+        }
+        
+        .role-option input {
+            display: none;
+        }
+        
+        .role-option label {
+            display: block;
+            cursor: pointer;
+            color: #b0b0b0;
+        }
+        
+        .role-option:hover {
+            background-color: #333;
+        }
+        
+        .role-option input:checked + label {
+            color: #4285f4;
+            font-weight: 500;
+        }
+        
+        .role-option input:checked ~ .role-highlight {
+            background-color: #4285f4;
+        }
+        
+        .role-highlight {
+            height: 3px;
+            background-color: transparent;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 480px) {
+            .signup-container {
+                margin: 20px;
+            }
+            
+            .signup-header {
+                padding: 20px;
+            }
+            
+            .signup-form {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Account</h1>
+            <p>Join Attendance Pro to manage student records</p>
+        </div>
+        
+        <div class="signup-form">
+            
+                <div class="role-selector">
+                    
+                    <div class="role-option">
+                        <input type="radio" id="student" name="role">
+                        <label for="student">Student</label>
+                        <div class="role-highlight"></div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="firstName" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Enter your last name" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Create a password" required>
+                    <div class="password-strength">
+                        <div class="strength-meter" id="password-meter"></div>
+                    </div>
+                </div>
+                
+                <button type="button" onclick="submit()" class="signup-button">Create Account</button>
+                
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Log in</a>
+                </div>
+           
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>
