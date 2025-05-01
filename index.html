@@ -3,95 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance App - Sign Up</title>
+    <title>Attendance Pro - Sign Up</title>
     <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --danger: #f72585;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         body {
-            background-color: #121212;
+            background-color: var(--darker);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: #e0e0e0;
+            color: var(--light);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(67, 97, 238, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(63, 55, 201, 0.15) 0%, transparent 50%);
         }
         
         .signup-container {
             width: 100%;
-            max-width: 450px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 480px;
+            background-color: var(--dark);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .signup-header {
-            background-color: #4285f4;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 25px;
+            padding: 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signup-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
         }
         
         .signup-header h1 {
             font-size: 1.8rem;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            position: relative;
         }
         
         .signup-header p {
             opacity: 0.9;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            position: relative;
         }
         
         .signup-form {
-            padding: 30px;
+            padding: 2rem;
         }
         
         .form-row {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
             flex: 1;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 500;
             font-size: 0.9rem;
-            color: #b0b0b0;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         .form-group input, 
         .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #333;
-            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border 0.3s;
-            background-color: #2d2d2d;
-            color: #e0e0e0;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--light);
         }
         
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #4285f4;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.2s;
+        }
+        
+        .toggle-password:hover {
+            color: var(--light);
         }
         
         .password-strength {
-            margin-top: 5px;
+            margin-top: 0.5rem;
             height: 4px;
-            background-color: #333;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 2px;
             overflow: hidden;
         }
@@ -99,56 +163,79 @@
         .strength-meter {
             height: 100%;
             width: 0;
-            background-color: #ea4335;
             transition: width 0.3s, background-color 0.3s;
         }
         
         .password-hint {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .password-hint i {
+            font-size: 0.6rem;
         }
         
         .terms-agreement {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
         }
         
         .terms-agreement input {
-            margin-right: 10px;
-            margin-top: 3px;
+            margin-right: 0.75rem;
+            margin-top: 0.2rem;
+            accent-color: var(--primary);
         }
         
         .terms-agreement a {
-            color: #4285f4;
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .terms-agreement a:hover {
+            color: var(--success);
+            text-decoration: underline;
         }
         
         .signup-button {
             width: 100%;
-            padding: 12px;
-            background-color: #4285f4;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
         
         .signup-button:hover {
-            background-color: #3367d6;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .signup-button:active {
+            transform: translateY(0);
         }
         
         .divider {
-            margin: 25px 0;
+            margin: 1.5rem 0;
             text-align: center;
             position: relative;
-            color: #666;
+            color: var(--gray);
             font-size: 0.8rem;
         }
         
@@ -159,43 +246,49 @@
             left: 0;
             right: 0;
             height: 1px;
-            background-color: #333;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             z-index: -1;
         }
         
         .divider span {
-            background-color: #1e1e1e;
-            padding: 0 10px;
+            background-color: var(--dark);
+            padding: 0 1rem;
         }
         
         .login-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 1.5rem;
             font-size: 0.9rem;
-            color: #b0b0b0;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         .login-link a {
-            color: #4285f4;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        
+        .login-link a:hover {
+            color: var(--success);
+            text-decoration: underline;
         }
         
         .role-selector {
             display: flex;
-            border: 1px solid #333;
-            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         .role-option {
             flex: 1;
             text-align: center;
-            padding: 10px;
+            padding: 0.8rem;
             cursor: pointer;
-            transition: background-color 0.3s;
-            background-color: #2d2d2d;
+            transition: all 0.3s ease;
         }
         
         .role-option input {
@@ -205,100 +298,166 @@
         .role-option label {
             display: block;
             cursor: pointer;
-            color: #b0b0b0;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
         .role-option:hover {
-            background-color: #333;
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         .role-option input:checked + label {
-            color: #4285f4;
-            font-weight: 500;
+            color: white;
+            font-weight: 600;
         }
         
         .role-option input:checked ~ .role-highlight {
-            background-color: #4285f4;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         
         .role-highlight {
             height: 3px;
             background-color: transparent;
-            margin-top: 5px;
+            margin-top: 0.5rem;
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* Social login buttons */
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 8px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .social-btn:active {
+            transform: translateY(0);
+        }
+        
+        .social-btn.google {
+            color: #ea4335;
+        }
+        
+        .social-btn.microsoft {
+            color: #0078d7;
         }
         
         @media (max-width: 480px) {
             .signup-container {
-                margin: 20px;
+                margin: 1rem;
+                border-radius: 12px;
             }
             
             .signup-header {
-                padding: 20px;
+                padding: 1.5rem;
             }
             
             .signup-form {
-                padding: 20px;
+                padding: 1.5rem;
             }
             
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+            
+            .social-login {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="signup-container">
         <div class="signup-header">
-            <h1>Create Account</h1>
-            <p>Join Attendance Pro to manage student records</p>
+            <h1>Join Attendance Pro</h1>
+            <p>Streamline your student management system</p>
         </div>
         
         <div class="signup-form">
+            <div class="role-selector">
+                <div class="role-option">
+                    <input type="radio" id="student" name="role" checked>
+                    <label for="student">Student</label>
+                    <div class="role-highlight"></div>
+                </div>
+                
+            </div>
             
-                <div class="role-selector">
-                    
-                    <div class="role-option">
-                        <input type="radio" id="student" name="role">
-                        <label for="student">Student</label>
-                        <div class="role-highlight"></div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="first-name">First Name</label>
-                        <input type="text" id="firstName" placeholder="Enter your first name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="last-name">Last Name</label>
-                        <input type="text" id="lastName" placeholder="Enter your last name" required>
-                    </div>
-                </div>
-                
+            <div class="form-row">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="firstName" placeholder="Enter your first name" required>
                 </div>
-                
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Create a password" required>
-                    <div class="password-strength">
-                        <div class="strength-meter" id="password-meter"></div>
-                    </div>
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="lastName" placeholder="Enter your last name" required>
                 </div>
-                
-                <button type="button" onclick="submit()" class="signup-button">Create Account</button>
-                
-                <div class="login-link">
-                    Already have an account? <a href="login.html">Log in</a>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="your.email@example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Create a strong password" required>
+                    <i class="toggle-password fas fa-eye"></i>
                 </div>
-           
+                <div class="password-strength">
+                    <div class="strength-meter" id="password-meter"></div>
+                </div>
+                <div class="password-hint">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Use 8+ characters with a mix of letters, numbers & symbols</span>
+                </div>
+            </div>
+            
+            
+            
+            <button type="button" onclick="submit()" class="signup-button">
+                Create Account
+            </button>
+            
+            <div class="divider">
+                <span>OR CONTINUE WITH</span>
+            </div>
+            
+            
+            
+            <div class="login-link">
+                Already have an account? <a href="login.html">Log in</a>
+            </div>
         </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="app.js"></script>
 </body>
 </html>
