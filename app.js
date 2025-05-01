@@ -1,3 +1,6 @@
+
+
+
 let fname =[]
 let lname =[]
 let emailUser =[]
@@ -73,9 +76,7 @@ password.value=""
     } else {
         console.log("No saved data found.");
     }
-    
-    
-    
+
     
     
     
